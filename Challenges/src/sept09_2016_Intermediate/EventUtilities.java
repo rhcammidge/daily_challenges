@@ -136,7 +136,7 @@ public class EventUtilities
 	}
 	
 	/**
-	 * My custom exception class.
+	 * Date event exception class.
 	 */
 	static class DateEventException extends Exception
 	{

@@ -35,7 +35,13 @@ public class DailyMethods {
 		boolean stop = false;
 		while(!stop) 
 		{
-			stop = Menu.parseMenuSelection(Utilities.fetchConsoleInput("\rMAIN MENU:\r\r\nPress A to add an item.\nPress E to edit an item.\nPress D to delete an item.\nPress V to view the schedule.\nPress X to exit the application."), allEvents);
+			stop = Menu.parseMenuSelection(Utilities.fetchConsoleInput("\rMAIN MENU:\r\r\nPress A to add an item.\n"
+					+ "Press E to edit an item.\n"
+					+ "Press D to delete an item.\n"
+					+ "Press V to view the schedule.\n"
+					+ "Press X to exit the application.\n"
+					+ "Press S to Save.\n"
+					+ "Press L to Load."), allEvents);
 		}
 	}
 	

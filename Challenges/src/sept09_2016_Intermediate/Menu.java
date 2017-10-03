@@ -2,6 +2,7 @@ package sept09_2016_Intermediate;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import sept09_2016_Intermediate.EventUtilities.DateEventException;
 import utilities.Utilities;
@@ -108,12 +109,37 @@ public class Menu
 					invalidSelection = false;
 					return false;
 				case "V":
-					allEvents.View();
+					System.out.println("Viewing events...");
+					String dateToView = null;
+					Date date = null;
+					while(dateToView == null || !EventUtilities.validateDate(dateToView))
+					{
+						dateToView = Utilities.fetchConsoleInput("Enter the date to view (MM/DD/YYYY): ");
+						if(EventUtilities.validateDate(dateToView))
+						{
+							try
+							{
+								date = EventUtilities.ParseDate(dateToView);
+							} 
+							catch (DateEventException e)
+							{
+								System.out.println("Invalid date.  Format should be (MM/DD/YYYY)and be a valid date.");	
+							}
+						}
+					}
+					allEvents.View(date);
 					invalidSelection = false;
 					return false;
 				case "X":
 					System.out.println("Thanks for using EVENT ORGANIZER 3000!");
 					return true;
+				case "L":
+					System.out.println("Loading from recent save.");
+					return false;
+				case "S":
+					System.out.println("Saving to local file.");
+					allEvents.Save();
+					return false;
 				default:
 					invalidSelection = true;
 					
@@ -124,12 +150,6 @@ public class Menu
 		return true;
 	}
 
-	public static void displayViewOptions()
-	{
-		
-		// View specific day
-		
-	}
 
 
 }
