@@ -15,9 +15,10 @@ public class Events
 	public void Add(Event event)
 	{
 		list.add(event);
+		System.out.println("Event added successfully.");
 		
 	}
-	public Events Delete(Event e)
+	public Events Delete(Event event)
 	{
 		return this;
 	}
@@ -25,9 +26,13 @@ public class Events
 	{
 		return this;
 	}
-	public Events View()
+	public void View()
 	{
-		return null;
+		Menu.displayViewOptions();
+		for(Event e : list)
+		{
+			
+		}
 	}
 	public void Save(String filename)
 	{

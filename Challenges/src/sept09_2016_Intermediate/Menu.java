@@ -3,6 +3,7 @@ package sept09_2016_Intermediate;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 
+import sept09_2016_Intermediate.EventUtilities.DateEventException;
 import utilities.Utilities;
 
 public class Menu
@@ -55,30 +56,36 @@ public class Menu
 					}
 					
 					// Parse and validate date (re-ask if invalid).
-					DateFormat dateFormat = new SimpleDateFormat("MM-dd-yyyy");
+					DateFormat dateFormat = new SimpleDateFormat(EventUtilities.DATEFORMAT);
 					while(event.date == null || !EventUtilities.validateDate(dateFormat.format(event.date)))
 					{
-						if(event.date != null)
-							System.out.println("Invalid date.  Format should be MM/DD/YYYY and be a validate date.");						
-						
-						event.date = EventUtilities.ParseDate(Utilities.fetchConsoleInput("Enter the date of the event (MM/DD/YYYY):")); // Parse date
+						// Parse date
+						try
+						{
+							event.date = EventUtilities.ParseDate(Utilities.fetchConsoleInput("Enter the date of the event (MM/DD/YYYY):"));
+						} 
+						catch (DateEventException e)
+						{
+							System.out.println("Invalid date.  Format should be MM/DD/YYYY and be a validate date.");	
+						} 
 					}
 					
 					
 					// Parse and validate hour (re-ask if invalid).
-					DateFormat hourFormat = new SimpleDateFormat("HH:mm");
-					while(event.hour != 0 || !EventUtilities.validateTime(hourFormat.format(event.time)))
+					DateFormat hourFormat = new SimpleDateFormat(EventUtilities.TIMEFORMAT);
+					while(event.time == null || !EventUtilities.validateTime(hourFormat.format(event.time)))
 					{
-						if(event.date != null)
-							System.out.println("Invalid date.  Format should be MM/DD/YYYY and be a validate date.");						
-						
-						event.date = EventUtilities.ParseDate(Utilities.fetchConsoleInput("Enter the date of the event (MM/DD/YYYY):")); // Parse date
+						// Parse time
+						try
+						{
+							event.time = EventUtilities.ParseTime(Utilities.fetchConsoleInput("Enter the time of the event 24h  ie 15:25(hh:mm):")); // Parse time
+						} 
+						catch (DateEventException e)
+						{
+							System.out.println("Invalid time.  Format should be hh:mm and be a valid time.");	
+						} 
 					}
-					
-					
-					// Parse and validate hour (re-ask if invalid).
-					//event.hour = Utilities.fetchConsoleInput("Enter the time of the event (24hr ie. 14:22):"); // Parse hour
-					
+
 					// Parse and validate description (re-ask if invalid).
 					while(event.description == null || !EventUtilities.validateDescription(event.description))
 					{
@@ -88,24 +95,25 @@ public class Menu
 						event.description = Utilities.fetchConsoleInput("Enter the despcription of the event:");
 					}	
 				
+					// Add event
 					allEvents.Add(event);
 					invalidSelection = false;
-					break;
+					return false;
 				case "E":
 					allEvents.Edit();
 					invalidSelection = false;
-					break;
+					return false;
 				case "D":
 					//allEvents.Delete();
 					invalidSelection = false;
-					break;
+					return false;
 				case "V":
 					allEvents.View();
 					invalidSelection = false;
-					break;
+					return false;
 				case "X":
 					System.out.println("Thanks for using EVENT ORGANIZER 3000!");
-					return false;
+					return true;
 				default:
 					invalidSelection = true;
 					
@@ -115,5 +123,13 @@ public class Menu
 		}
 		return true;
 	}
+
+	public static void displayViewOptions()
+	{
+		
+		// View specific day
+		
+	}
+
 
 }
