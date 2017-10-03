@@ -1,3 +1,4 @@
+import sept09_2016_Intermediate.Events;
 import sept09_2016_Intermediate.Menu;
 import utilities.Utilities;
 
@@ -22,19 +23,20 @@ public class DailyMethods {
 	 * Sept 09 2016 - Intermediate Challenge #1
 	 * 
 	 * Create a menu driven program
-	 * Using the menu drive program allow a user to add/delete items
-	 * The menu should be based on an events calender where users enter the events by hour
+	 * Using the menu driven program allow a user to add/delete items
+	 * The menu should be based on an events calendar where users enter the events by hour
 	 * No events should be hard-coded.
 	 */
 	public static void Sept09_2016_Intermediate()
 	{
 		// Display Menu
 		System.out.print("#####EVENT ORGANIZER 3000#####\n");
-		
-		Menu.parseMenuSelection(Utilities.fetchConsoleInput("Press A to add an item.\nPress E to edit an item.\nPress D to delete an item.\nPress V to view the schedule."));
-		
-	
-		
+		Events allEvents = new Events();
+		boolean stop = false;
+		while(!stop) 
+		{
+			stop = Menu.parseMenuSelection(Utilities.fetchConsoleInput("\rMAIN MENU:\r\r\nPress A to add an item.\nPress E to edit an item.\nPress D to delete an item.\nPress V to view the schedule.\nPress X to exit the application."), allEvents);
+		}
 	}
 	
 
